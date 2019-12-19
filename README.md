@@ -1,1 +1,85 @@
 # linuxserverconfiguration
+
+1) IP address : 13.126.138.52
+
+2) SSH PORT : 22
+
+3) URL of the application : ec2-13-126-138-52.ap-south-1.compute.amazonaws.com
+
+4) Softwares installed and configuration changes made :
+
+a) Update and upgrade installed packages
+
+sudo apt-get update
+sudo apt-get upgrade
+
+b) Configure the Uncomplicated Firewall (UFW)
+
+sudo ufw status  
+
+sudo ufw default allow outgoing
+
+sudo ufw allow www 
+
+5) Create a new user account named grader
+
+While logged in as ubuntu, add user: sudo adduser grader
+
+6) Give grader the permission to sudo
+
+While logged in as root, vim /etc/sudoers 
+Search for the line that looks like this:
+root    ALL=(ALL:ALL) ALL
+
+Below this line, add a new line to give sudo privileges to grader user.
+grader  ALL=(ALL:ALL) ALL
+
+Save and exit using CTRL+X and confirm with Y.
+
+Verify that grader has sudo permissions. Run su - grader, enter the password, run sudo -l
+
+
+
+7) Create an SSH key pair for grader using the ssh-keygen tool
+
+ On the local machine:
+        Run ssh-keygen
+        Enter file in which to save the key (I gave the name grader_key) in the local directory ~/.ssh
+        Enter in a passphrase twice. Two files will be generated ( ~/.ssh/grader_key and ~/.ssh/grader_key.pub)
+        Run cat ~/.ssh/grader_key.pub and copy the contents of the file
+        Log into the ec2 instance .
+
+On the grader's virtual machine (ec2 instance):
+
+ Create a new directory called ~/.ssh (mkdir .ssh)
+ Run sudo nano ~/.ssh/authorized_keys and paste the content into this file, save and exit
+ 
+Give the permissions: chmod 700 .ssh and chmod 644 .ssh/authorized_keys
+Check in /etc/ssh/sshd_config file if PasswordAuthentication is set to yes
+Restart SSH: sudo service ssh restart
+
+8) Configure the local timezone to UTC
+
+While logged in as grader, configure the time zone: sudo dpkg-reconfigure tzdata.
+You should see something like that:
+
+Current default time zone: 'America/Chicago'
+Local time is now:      Thu Dec 19 06:09:04 CST 2019.
+Universal Time is now:  Thu Dec 19 12:09:04 UTC 2019.
+
+9) Install and configure Apache to serve a Python mod_wsgi application
+
+While logged in as grader, install Apache: 
+
+sudo apt-get install apache2.
+sudo apt-get install libapache2-mod-wsgi-py3
+
+Enable mod_wsgi using: sudo a2enmod wsgi.
+
+
+
+
+
+
+
+
