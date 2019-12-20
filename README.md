@@ -1,10 +1,10 @@
 # linux server configuration Project
 
-1) IP address of the ec2 instance : 13.126.138.52
+1) IP address of the ec2 instance : 52.66.211.45
 
 2) SSH PORT : 22
 
-3) URL of the application : ec2-13-126-138-52.ap-south-1.compute.amazonaws.com
+3) URL of the application : ec2-52-66-211-45.ap-south-1.compute.amazonaws.com
 
 4) Softwares installed and configuration changes made :
 
@@ -60,7 +60,9 @@ and
 chmod 644 .ssh/authorized_keys
 Check in /etc/ssh/sshd_config file if PasswordAuthentication is set to yes
 Restart SSH: sudo service ssh restart
-Login from your local using sudo ssh -i ~/.ssh/grader_key  grader@13.126.138.52
+Login from your local using sudo ssh -i ~/.ssh/grader_key  grader@52.66.211.45
+
+password for grader : icandoanythingA@1
 
 8) Configure the local timezone to UTC
 
